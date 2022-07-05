@@ -33,4 +33,36 @@ describe("cita", () => {
 		await userEvent.click(button);
 		expect(await screen.findByText(/Homer Simpson/i)).toBeInTheDocument()
 	})
+	it("Deberia renderizar una cita de bart al ingresar el nombre", async () => {
+		render(<Cita />);
+		const input = screen.getByPlaceholderText("Ingresa el nombre del autor")
+		await userEvent.type(input, "Bart")
+		const button = screen.getByText(/Obtener cita/i);
+		await userEvent.click(button);
+		expect(await screen.findByText(/Bart Simpson/i)).toBeInTheDocument()
+	})
+	it("Deberia renderizar una cita de Marge al ingresar el nombre", async () => {
+		render(<Cita />);
+		const input = screen.getByPlaceholderText("Ingresa el nombre del autor")
+		await userEvent.type(input, "Marge")
+		const button = screen.getByText(/Obtener cita/i);
+		await userEvent.click(button);
+		expect(await screen.findByText(/Marge Simpson/i)).toBeInTheDocument()
+	})
+	it("Deberia renderizar un error al ingresar un numero", async () => {
+		render(<Cita />);
+		const input = screen.getByPlaceholderText("Ingresa el nombre del autor")
+		await userEvent.type(input, "9")
+		const button = screen.getByText(/Obtener cita/i);
+		await userEvent.click(button);
+		expect(await screen.findByText(/Por favor ingrese un nombre válido/i)).toBeInTheDocument()
+	})
+	it("Deberia borrar el nombre ingresado al hacer click en borrar", async () => {
+		render(<Cita />);
+		const input = screen.getByPlaceholderText("Ingresa el nombre del autor")
+		await userEvent.type(input, "Bart")
+		const button = screen.getByText(/Borrar/i);
+		await userEvent.click(button);
+		expect(screen.getByText(/No se encontro ninguna cita/i)).toBeInTheDocument()
+	})
 })
