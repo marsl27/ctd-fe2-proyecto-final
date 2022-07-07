@@ -46,9 +46,9 @@ export const BotonBio = styled.button<IButton>`
 	margin: 1rem;
 	font-family: "Homer Simpson Revised", sans-serif;
 	font-size: 1.4rem;
-	background-color: ${props => props.activo ? "#fdd835" : null};
-  	color: ${props => props.activo ? "whitesmoke" : null};
-	text-shadow: ${props => props.activo ? "2px 2px 0 #000000, 2px -2px 0 #000000, -2px 2px 0 #000000,-2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000,-2px 0px 0 #000000, 0px -2px 0 #000000" : null}; 
+	background-color: ${({activo}) => activo ? "#fdd835" : null};
+  	color: ${({activo}) => activo ? "whitesmoke" : null};
+	text-shadow: ${({activo}) => activo ? "2px 2px 0 #000000, 2px -2px 0 #000000, -2px 2px 0 #000000,-2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000,-2px 0px 0 #000000, 0px -2px 0 #000000" : null}; 
 	&:hover {
 		cursor: pointer;
 	}
