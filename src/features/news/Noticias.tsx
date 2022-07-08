@@ -50,7 +50,7 @@ const formatData = (data: any) => {
 const Noticias = () => {
 	const [noticias, setNoticias] = useState<INoticiasNormalizadas[]>([]);
 	const [modal, setModal] = useState<INoticiasNormalizadas | null>(null);
-	
+
 	const tituloSuscribete = "Suscríbete a nuestro Newsletter";
 	const descripcionSuscribete = "Suscríbete a nuestro newsletter y recibe noticias de nuestros personajes favoritos."
 
@@ -61,8 +61,17 @@ const Noticias = () => {
 		setNoticias(data);
 	}
 
+	function handleEscapeKey(event: KeyboardEvent) {
+		if (event.code === 'Escape') {
+			setModal(null)
+		}
+	}
+
 	useEffect(() => {
 		obtenerInformacion();
+		
+		document.addEventListener('keydown', handleEscapeKey)
+		return () => document.removeEventListener('keydown', handleEscapeKey)
 	}, []);
 
 	return (
@@ -80,15 +89,15 @@ const Noticias = () => {
 						<BotonLectura onClick={() => setModal(n)}>Ver más</BotonLectura>
 					</TarjetaNoticia>
 				))}
-				{modal ? (
-					modal.esPremium ? (
-						<ModalNoticias
-							imagen={SuscribeImage} 
-							titulo={tituloSuscribete}
-							descripcion={descripcionSuscribete}
-							altImagen="mr-burns-excelent"
-							setModal={setModal}
-						>
+				{modal && (
+					<ModalNoticias
+						imagen={modal.esPremium ? SuscribeImage : modal.imagen}
+						titulo={modal.esPremium ? tituloSuscribete : modal.titulo}
+						descripcion={modal.esPremium ? descripcionSuscribete : modal.descripcion}
+						altImagen="mr-burns-excelent"
+						setModal={setModal}
+					>
+						{modal.esPremium &&
 							<BotonSuscribir
 								onClick={() =>
 									setTimeout(() => {
@@ -98,19 +107,9 @@ const Noticias = () => {
 								}
 							>
 								Suscríbete
-							</BotonSuscribir>
-						</ModalNoticias>
-
-					) : (
-						<ModalNoticias
-							imagen={modal.imagen} 
-							titulo={modal.titulo}
-							descripcion={modal.descripcion}
-							altImagen="news-image"
-							setModal={setModal}
-						/>
-					)
-				) : null}
+							</BotonSuscribir>}
+					</ModalNoticias>
+				)}
 			</ListaNoticias>
 		</ContenedorNoticias>
 	);
