@@ -1,13 +1,7 @@
 import { rest } from "msw";
 import { API_URL } from "../app/constants";
+import { IQuote } from "./types";
 
-interface IQuote {
-	character: string;
-	quote: string;
-	image: string;
-	characterDirection: string;
-}
-  
 export const handlers = [
 	rest.get(API_URL, (req, res, ctx) => {
 		let quote: IQuote[] = [];

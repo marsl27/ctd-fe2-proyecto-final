@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IPropsButton } from './types';
 
 export const BioContainer = styled.div`
 	display: flex;
@@ -34,11 +35,8 @@ export const ContenedorBotones = styled.div`
 	width: 100%;
 	margin-bottom: 1rem;
 `
-interface IButton {
-	activo: boolean;
-}
 
-export const BotonBio = styled.button<IButton>`
+export const BotonBio = styled.button<IPropsButton>`
 	border-radius: 5px;
 	border: 1px solid darkgray;
 	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
@@ -46,9 +44,9 @@ export const BotonBio = styled.button<IButton>`
 	margin: 1rem;
 	font-family: "Homer Simpson Revised", sans-serif;
 	font-size: 1.4rem;
-	background-color: ${({activo}) => activo ? "#fdd835" : null};
-  	color: ${({activo}) => activo ? "whitesmoke" : null};
-	text-shadow: ${({activo}) => activo ? "2px 2px 0 #000000, 2px -2px 0 #000000, -2px 2px 0 #000000,-2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000,-2px 0px 0 #000000, 0px -2px 0 #000000" : null}; 
+	background-color: ${({activo}) => activo && "#fdd835"};
+  	color: ${({activo}) => activo && "whitesmoke"};
+	text-shadow: ${({activo}) => activo && "2px 2px 0 #000000, 2px -2px 0 #000000, -2px 2px 0 #000000,-2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000,-2px 0px 0 #000000, 0px -2px 0 #000000"}; 
 	&:hover {
 		cursor: pointer;
 	}

@@ -162,7 +162,7 @@ export const ImagenModal = styled.img`
   height: 100%;
 `;
 
-export const CotenedorTexto = styled.div`
+export const ContenedorTexto = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

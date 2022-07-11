@@ -13,28 +13,20 @@ import {
 	BotonLectura,
 	BotonSuscribir
 } from "./styled";
+import { INoticias } from "./fakeRest";
+import { INoticiasNormalizadas } from "./types";
 
 import { toUpperCase } from "../../utils/formatStrings";
 import { elapsedMinutes } from "../../utils/formatDate";
 import ModalNoticias from "./ModalNoticias";
 
-export interface INoticiasNormalizadas {
-	id: number;
-	titulo: string;
-	descripcion: string;
-	fecha: number | string;
-	esPremium: boolean;
-	imagen: string;
-	descripcionCorta?: string;
-}
-
-const formatData = (data: any) => {
-	return data.map((n: any) => {
+const formatData = (data: INoticias[]) => {
+	return data.map((n:INoticias) => {
 		//Pase las dos funciones que formateaban el titulo y los minutos a una carpeta utils para que la funcion formatData solo se encargue
 		//de devolver el objeto con la data ya formateada aplicando el principio de responsabilidad unica
 		const titulo = toUpperCase(n.titulo);
 		const minutosTranscurridos = elapsedMinutes(n.fecha);
-
+		
 		return {
 			id: n.id,
 			titulo,
@@ -61,11 +53,7 @@ const Noticias = () => {
 		setNoticias(data);
 	}
 
-	function handleEscapeKey(event: KeyboardEvent) {
-		if (event.code === 'Escape') {
-			setModal(null)
-		}
-	}
+	const handleEscapeKey = (event: KeyboardEvent) => event.code === 'Escape' && setModal(null);
 
 	useEffect(() => {
 		obtenerInformacion();
@@ -94,7 +82,7 @@ const Noticias = () => {
 						imagen={modal.esPremium ? SuscribeImage : modal.imagen}
 						titulo={modal.esPremium ? tituloSuscribete : modal.titulo}
 						descripcion={modal.esPremium ? descripcionSuscribete : modal.descripcion}
-						altImagen="mr-burns-excelent"
+						altImagen={modal.esPremium ? "mr-burns-excelent" : "news-image"}
 						setModal={setModal}
 					>
 						{modal.esPremium &&

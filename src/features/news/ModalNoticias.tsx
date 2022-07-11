@@ -6,33 +6,23 @@ import {
 	ImagenModal,
 	TituloModal, 
 	DescripcionModal, 
-	CotenedorTexto
+	ContenedorTexto
 } from "./styled";
 import { CloseButton as Close } from "../../assets";
-import { INoticiasNormalizadas } from "./Noticias"
+import { IPropsModal } from "./types"
 
-interface IProps {
-	imagen: string, 
-	titulo: string, 
-	descripcion: string,
-	altImagen: string, 
-	setModal: (modal: INoticiasNormalizadas | null) => void, 
-	children?: React.ReactNode,
-}
-
-const ModalNoticias = ({ imagen, titulo, descripcion, altImagen, setModal, children }: IProps) => {
-
+const ModalNoticias = ({ imagen, titulo, descripcion, altImagen, setModal, children }: IPropsModal) => {
 	return <ContenedorModal>
 		<TarjetaModal>
 			<CloseButton onClick={() => setModal(null)}>
 				<img src={Close} alt="close-button" />
 			</CloseButton>
 			<ImagenModal src={imagen} alt={altImagen} />
-			<CotenedorTexto>
+			<ContenedorTexto>
 				<TituloModal>{titulo}</TituloModal>
 				<DescripcionModal>{descripcion}</DescripcionModal>
 				{children}
-			</CotenedorTexto>
+			</ContenedorTexto>
 		</TarjetaModal>
 	</ContenedorModal>
 }
